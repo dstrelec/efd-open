@@ -37,11 +37,6 @@ const DEFAULT_TOURNAMENT_ID = "efd-open-2026";
 const playerMap = Object.fromEntries(players.map((player) => [player.id, player]));
 const groupMatches = buildGroupMatches();
 let supabaseClient = null;
-let syncStatus = {
-  state: "loading",
-  label: "Supabase",
-  message: "Učitavanje rezultata iz baze"
-};
 
 function buildGroupMatches() {
   const matches = [];
@@ -120,8 +115,6 @@ function scoreFromDatabase(value) {
 }
 
 async function loadResults() {
-  syncStatus = { state: "loading", label: "Supabase", message: "Učitavanje rezultata iz baze" };
-
   try {
     const { data, error } = await getSupabaseClient()
       .from(SUPABASE_TABLE)
@@ -130,7 +123,6 @@ async function loadResults() {
 
     if (error) throw error;
 
-    syncStatus = { state: "ready", label: "Supabase sync", message: "Rezultati su učitani iz baze" };
     return (data || []).reduce((acc, row) => {
       acc[row.match_id] = {
         player1: scoreFromDatabase(row.player1_score),
@@ -139,11 +131,7 @@ async function loadResults() {
       return acc;
     }, {});
   } catch (error) {
-    syncStatus = {
-      state: "error",
-      label: "Supabase nije spreman",
-      message: error.message || "Provjeri Supabase konfiguraciju i tablicu game_results"
-    };
+    console.error(error);
     return {};
   }
 }
@@ -162,13 +150,8 @@ async function saveMatchResult(matchId, result) {
       .upsert(payload, { onConflict: "tournament_id,match_id" });
 
     if (error) throw error;
-    syncStatus = { state: "ready", label: "Supabase sync", message: "Zadnja promjena je spremljena u bazu" };
   } catch (error) {
-    syncStatus = {
-      state: "error",
-      label: "Supabase greška",
-      message: error.message || "Promjena nije spremljena"
-    };
+    console.error(error);
   }
 }
 
@@ -249,7 +232,6 @@ function renderMatchList(container, results) {
           <div>
             <h3 class="match-round-title">Skupina ${group} - Kolo ${round}</h3>
           </div>
-          <p>Dva meča po kolu, jedan igrač je slobodan.</p>
         </div>
         <div class="match-round-grid">
           ${(grouped[group][round] || []).map((match) => {
@@ -422,7 +404,6 @@ function updateStatus(container, results, standingsByGroup) {
   container.innerHTML = `
     <div class="stage-chip"><strong>${completedGroups}/20</strong><br>grupnih mečeva upisano</div>
     <div class="stage-chip"><strong>${finalists}</strong><br>trenutni projected finale</div>
-    <div class="stage-chip"><strong>${syncStatus.label}</strong><br>${syncStatus.message}</div>
   `;
 }
 
