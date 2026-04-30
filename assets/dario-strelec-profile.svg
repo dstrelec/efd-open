@@ -1,0 +1,42 @@
+<svg width="900" height="1100" viewBox="0 0 900 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="760" y2="1040" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071B44"/>
+      <stop offset="0.55" stop-color="#0C3C8B"/>
+      <stop offset="1" stop-color="#F7A400"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(710 210) rotate(125.964) scale(424.489 487.82)">
+      <stop stop-color="#FFD873" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#FFD873" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shirt" x1="282" y1="564" x2="642" y2="925" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0D57C6"/>
+      <stop offset="1" stop-color="#08337A"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" rx="42" fill="url(#bg)"/>
+  <rect width="900" height="1100" rx="42" fill="url(#glow)"/>
+  <circle cx="706" cy="214" r="120" fill="#F6C33B" fill-opacity="0.42"/>
+  <path d="M80 250C245 172 355 143 824 132" stroke="#5AB8FF" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <path d="M94 306C310 258 517 238 832 231" stroke="#D2E9FF" stroke-width="4" stroke-linecap="round" opacity="0.65"/>
+  <g opacity="0.95">
+    <circle cx="186" cy="174" r="72" fill="#F6F8FB" fill-opacity="0.12" stroke="#F6F8FB" stroke-width="4"/>
+    <text x="186" y="191" text-anchor="middle" fill="#F6F8FB" font-size="44" font-family="Arial, sans-serif" font-weight="700">DS</text>
+  </g>
+  <text x="120" y="122" fill="#F4F7FB" font-size="42" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">EMIL FREY DIGITAL OPEN</text>
+  <text x="120" y="170" fill="#F5BF35" font-size="26" font-family="Arial, sans-serif" font-weight="700" letter-spacing="5">PLAYER PORTRAIT</text>
+  <ellipse cx="451" cy="396" rx="150" ry="165" fill="#EAC7A5"/>
+  <path d="M308 404C320 309 371 238 451 238C531 238 582 309 594 404V480H308V404Z" fill="#5B311A"/>
+  <path d="M325 417C336 336 380 280 451 280C522 280 566 336 577 417V486H325V417Z" fill="#F1D3B4"/>
+  <path d="M312 399C320 335 363 238 451 238C540 238 581 335 589 399C570 390 553 382 534 375C520 330 491 305 451 305C411 305 381 330 367 375C347 382 330 390 312 399Z" fill="#4B2510"/>
+  <path d="M401 448C418 461 433 468 451 468C469 468 484 461 501 448" stroke="#8C5C42" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="391" cy="403" r="10" fill="#2B1D16"/>
+  <circle cx="511" cy="403" r="10" fill="#2B1D16"/>
+  <path d="M418 513C434 522 468 522 484 513" stroke="#A95746" stroke-width="7" stroke-linecap="round"/>
+  <path d="M234 893C254 728 324 597 451 597C578 597 648 728 668 893" fill="url(#shirt)"/>
+  <path d="M318 627L451 767L584 627" stroke="#F4C13D" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M290 878H612" stroke="#D9E9FF" stroke-opacity="0.35" stroke-width="6" stroke-linecap="round"/>
+  <text x="120" y="960" fill="#F7F9FD" font-size="74" font-family="Arial, sans-serif" font-weight="700">DARIO</text>
+  <text x="120" y="1038" fill="#F7B73B" font-size="74" font-family="Arial, sans-serif" font-weight="700">STRELEC</text>
+  <text x="120" y="1078" fill="#D6E6FF" font-size="28" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">SYSTEM ARCHITECT  |  AGE 47  |  CROATIA</text>
+</svg>
