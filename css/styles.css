@@ -25,10 +25,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family: var(--body);
   color: var(--text);
   background:
@@ -497,7 +499,6 @@ h1,
 
 .player-role,
 .group-title,
-.match-title,
 .player-section-title {
   font-family: var(--display);
   text-transform: uppercase;
@@ -679,52 +680,67 @@ h1,
 .results-grid {
   display: grid;
   gap: 22px;
+  min-width: 0;
+}
+
+.results-entry,
+.match-help,
+.match-list,
+.match-round,
+.match-round-head,
+.match-round-grid,
+.match-card,
+.match-head,
+.match-score-grid,
+.match-score-control,
+.match-status {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.results-entry > h3 {
+  margin: 0 0 10px;
+  font-family: var(--display);
+  font-size: 1.45rem;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .match-list {
   display: grid;
   gap: 16px;
+  margin-top: 18px;
 }
 
-.match-group-block {
-  padding: 18px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.match-group-head {
+.match-round-head {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   align-items: end;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
-.match-group-head p {
+.match-round-head p {
   margin: 0;
   color: var(--muted);
-}
-
-.match-rounds {
-  display: grid;
-  gap: 16px;
+  overflow-wrap: anywhere;
 }
 
 .match-round {
-  padding: 16px;
+  padding: 20px;
   border-radius: 18px;
-  background: rgba(3, 13, 32, 0.28);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(3, 13, 32, 0.34);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .match-round-title {
-  margin-bottom: 14px;
+  margin: 0;
   color: var(--gold);
   font-family: var(--display);
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .match-round-grid {
@@ -734,20 +750,53 @@ h1,
 }
 
 .match-card {
-  padding: 18px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .match-head {
   display: flex;
-  justify-content: flex-end;
-  gap: 14px;
-  align-items: start;
-  margin-bottom: 16px;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.match-head p {
-  margin: 4px 0 0;
-  color: var(--muted);
+.match-head strong {
+  min-width: 0;
+  font-size: 1rem;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.match-score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(150px, 0.7fr);
+  gap: 12px;
+  align-items: end;
+}
+
+.match-score-control select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  appearance: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(2, 10, 24, 0.72);
+  color: var(--text);
+  font: inherit;
+}
+
+.match-status {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .score-entry {
@@ -755,17 +804,6 @@ h1,
   grid-template-columns: minmax(0, 1fr) 120px 120px;
   gap: 12px;
   align-items: end;
-}
-
-.score-summary {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 120px 120px;
-  gap: 12px;
-  align-items: end;
-}
-
-.score-summary .player-pill:last-child {
-  grid-column: 2 / span 2;
 }
 
 .placement-score {
@@ -1052,7 +1090,7 @@ h1,
   .section-head,
   .match-head,
   .player-card-footer,
-  .match-group-head {
+  .match-round-head {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -1076,7 +1114,7 @@ h1,
   }
 
   .score-entry,
-  .score-summary {
+  .match-score-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1099,5 +1137,76 @@ h1,
     position: static;
     margin-top: 28px;
     text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 20px);
+    max-width: 1180px;
+  }
+
+  .content-section {
+    padding: 24px 0;
+  }
+
+  .panel,
+  .match-round,
+  .match-card,
+  .standings-card,
+  .bracket-card,
+  .placement-card,
+  .qualifier-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .match-round,
+  .match-card {
+    width: 100%;
+  }
+
+  .match-round-head {
+    gap: 10px;
+  }
+
+  .match-round-head p {
+    font-size: 0.95rem;
+  }
+
+  .results-entry > h3 {
+    font-size: 1.2rem;
+    line-height: 1.15;
+  }
+
+  .match-help {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .match-round-title {
+    font-size: 1.15rem;
+    line-height: 1.15;
+  }
+
+  .match-card {
+    overflow: hidden;
+  }
+
+  .match-head strong {
+    text-align: left;
+  }
+
+  .score-entry,
+  .placement-score,
+  .match-score-grid {
+    gap: 10px;
+  }
+
+  .score-entry select,
+  .score-entry input,
+  .match-score-control select,
+  .player-pill {
+    min-width: 0;
   }
 }

@@ -242,60 +242,45 @@ function renderMatchList(container, results) {
     return acc;
   }, {});
 
-  container.innerHTML = ["A", "B"].map((group) => `
-    <section class="match-group-block">
-      <div class="match-group-head">
-        <div>
-          <div class="badge">Skupina ${group}</div>
-          <h3 class="stage-title">Raspored i rezultati</h3>
+  container.innerHTML = ["A", "B"].flatMap((group) =>
+    Object.keys(grouped[group] || {}).map((round) => `
+      <section class="match-round">
+        <div class="match-round-head">
+          <div>
+            <h3 class="match-round-title">Skupina ${group} - Kolo ${round}</h3>
+          </div>
+          <p>Dva meča po kolu, jedan igrač je slobodan.</p>
         </div>
-        <p>Dva meča po kolu, jedan igrač je slobodan.</p>
-      </div>
-      <div class="match-rounds">
-        ${Object.keys(grouped[group] || {}).map((round) => `
-          <section class="match-round">
-            <div class="match-round-title">Kolo ${round}</div>
-            <div class="match-round-grid">
-              ${(grouped[group][round] || []).map((match) => {
-                const saved = results[match.id] || {};
-                return `
-                  <article class="match-card">
-                    <div class="match-head">
-                      <span class="mini-label">${match.id}</span>
-                    </div>
-                    <div class="score-entry">
-                      <div class="player-pill">
-                        <span class="input-label">Igrač 1</span>
-                        <strong>${getPlayerName(match.player1)}</strong>
-                      </div>
-                      <label>
-                        <span class="input-label">Gemovi</span>
-                        <select data-match-id="${match.id}" data-player-key="player1">${buildScoreOptions(saved.player1)}</select>
-                      </label>
-                      <label>
-                        <span class="input-label">Gemovi</span>
-                        <select data-match-id="${match.id}" data-player-key="player2">${buildScoreOptions(saved.player2)}</select>
-                      </label>
-                    </div>
-                    <div class="score-summary" style="margin-top: 12px;">
-                      <div class="player-pill">
-                        <span class="input-label">Igrač 2</span>
-                        <strong>${getPlayerName(match.player2)}</strong>
-                      </div>
-                      <div class="player-pill">
-                        <span class="input-label">Status</span>
-                        <strong>${describeResult(saved.player1, saved.player2)}</strong>
-                      </div>
-                    </div>
-                  </article>
-                `;
-              }).join("")}
-            </div>
-          </section>
-        `).join("")}
-      </div>
-    </section>
-  `).join("");
+        <div class="match-round-grid">
+          ${(grouped[group][round] || []).map((match) => {
+            const saved = results[match.id] || {};
+            return `
+              <article class="match-card">
+                <div class="match-head">
+                  <span class="mini-label">${match.id}</span>
+                  <strong>${getPlayerName(match.player1)} vs ${getPlayerName(match.player2)}</strong>
+                </div>
+                <div class="match-score-grid">
+                  <label class="match-score-control">
+                    <span class="input-label">${getPlayerName(match.player1)}</span>
+                    <select data-match-id="${match.id}" data-player-key="player1">${buildScoreOptions(saved.player1)}</select>
+                  </label>
+                  <label class="match-score-control">
+                    <span class="input-label">${getPlayerName(match.player2)}</span>
+                    <select data-match-id="${match.id}" data-player-key="player2">${buildScoreOptions(saved.player2)}</select>
+                  </label>
+                  <div class="match-status">
+                    <span class="input-label">Status</span>
+                    <strong>${describeResult(saved.player1, saved.player2)}</strong>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join("")}
+        </div>
+      </section>
+    `)
+  ).join("");
 }
 
 function buildScoreOptions(selectedValue) {
