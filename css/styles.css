@@ -552,6 +552,13 @@ h1,
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
+.player-headshot img,
+.player-hero-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .player-headshot.placeholder {
   display: grid;
   place-items: center;
