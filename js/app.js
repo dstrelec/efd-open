@@ -373,7 +373,6 @@ async function initTournamentPage() {
   const standingsContainer = document.querySelector("[data-standings]");
   const qualifiersContainer = document.querySelector("[data-qualifiers]");
   const bracketContainer = document.querySelector("[data-playoff-bracket]");
-  const infoBanner = document.querySelector("[data-tournament-status]");
   const results = await loadResults();
 
   const rerender = () => {
@@ -382,29 +381,10 @@ async function initTournamentPage() {
     renderStandings(standingsContainer, standingsByGroup);
     renderQualifiers(qualifiersContainer, standingsByGroup);
     renderPlayoffBracket(bracketContainer, standingsByGroup, results);
-    updateStatus(infoBanner, results, standingsByGroup);
     bindForm(document, results, rerender);
   };
 
   rerender();
-}
-
-function updateStatus(container, results, standingsByGroup) {
-  if (!container) return;
-
-  const completedGroups = groupMatches.filter((match) => {
-    const result = results[match.id];
-    return result && result.player1 !== "" && result.player2 !== "" && result.player1 !== undefined && result.player2 !== undefined && Number(result.player1) !== Number(result.player2);
-  }).length;
-
-  const finalists = [getPlayerBySeed("A1", standingsByGroup), getPlayerBySeed("B1", standingsByGroup)]
-    .map((entry) => entry?.name || "TBD")
-    .join(" vs ");
-
-  container.innerHTML = `
-    <div class="stage-chip"><strong>${completedGroups}/20</strong><br>grupnih mečeva upisano</div>
-    <div class="stage-chip"><strong>${finalists}</strong><br>trenutni projected finale</div>
-  `;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
