@@ -1,9 +1,9 @@
 const players = [
   { id: "dario-strelec", name: "Dario Strelec", shortName: "Dario", age: 47, role: "System Architect", tagline: "The Systems Maestro", nation: "Team 2", group: "A", seed: "A1", cardPath: "players/dario-strelec.html" },
   { id: "player-02", name: "Martin Lacko", shortName: "Martin", age: 27, role: "Development Team Lead", tagline: "The UI Matador", nation: "Team 1", group: "A", seed: "A2", cardPath: "players/player-02.html" },
-  { id: "player-03", name: "Matija Šaško", shortName: "Matija", age: 38, role: "Product Owner - Team 4", tagline: "The Backlog Boomer", nation: "Team 4", group: "A", seed: "A3", cardPath: "players/player-03.html" },
+  { id: "player-03", name: "Matija Šaško", shortName: "Matija", age: 38, role: "Product Owner", tagline: "The Backlog Boomer", nation: "Team 4", group: "A", seed: "A3", cardPath: "players/player-03.html" },
   { id: "player-04", name: "Marko Možina", shortName: "Marko", age: 43, role: "Head of Development", tagline: "The Operating Ace", nation: "Team 4", group: "A", seed: "A4", cardPath: "players/player-04.html" },
-  { id: "player-05", name: "Player 05", shortName: "P05", age: "TBD", role: "Digital Challenger", tagline: "Ready To Rally", nation: "TBD", group: "A", seed: "A5", cardPath: "players/player-05.html" },
+  { id: "player-05", name: "Luka Mikolaj", shortName: "Luka", age: 36, role: "Main Developer", tagline: "The Main Committer", nation: "Team 4", group: "A", seed: "A5", cardPath: "players/player-05.html" },
   { id: "player-06", name: "Player 06", shortName: "P06", age: "TBD", role: "Digital Challenger", tagline: "Match Point Incoming", nation: "TBD", group: "B", seed: "B1", cardPath: "players/player-06.html" },
   { id: "player-07", name: "Player 07", shortName: "P07", age: "TBD", role: "Digital Challenger", tagline: "Net Rush Pending", nation: "TBD", group: "B", seed: "B2", cardPath: "players/player-07.html" },
   { id: "player-08", name: "Player 08", shortName: "P08", age: "TBD", role: "Digital Challenger", tagline: "Baseline Control", nation: "TBD", group: "B", seed: "B3", cardPath: "players/player-08.html" },
