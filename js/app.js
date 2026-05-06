@@ -1,7 +1,7 @@
 const players = [
   { id: "dario-strelec", name: "Dario Strelec", shortName: "Dario", age: 47, role: "System Architect", tagline: "The Systems Maestro", nation: "Croatia", group: "A", seed: "A1", cardPath: "players/dario-strelec.html" },
-  { id: "player-02", name: "Player 02", shortName: "P02", age: "TBD", role: "Digital Challenger", tagline: "Wildcard Loading", nation: "TBD", group: "A", seed: "A2", cardPath: "players/player-02.html" },
-  { id: "player-03", name: "Player 03", shortName: "P03", age: "TBD", role: "Digital Challenger", tagline: "Serve Pending", nation: "TBD", group: "A", seed: "A3", cardPath: "players/player-03.html" },
+  { id: "player-02", name: "Martin Lacko", shortName: "Martin", age: 27, role: "Development Team Lead - Team 5", tagline: "The UI Matador", nation: "Team 5", group: "A", seed: "A2", cardPath: "players/player-02.html" },
+  { id: "player-03", name: "Matija Šaško", shortName: "Matija", age: 38, role: "Product Owner - Team 4", tagline: "The Backlog Boomer", nation: "Team 4", group: "A", seed: "A3", cardPath: "players/player-03.html" },
   { id: "player-04", name: "Player 04", shortName: "P04", age: "TBD", role: "Digital Challenger", tagline: "Focus Mode", nation: "TBD", group: "A", seed: "A4", cardPath: "players/player-04.html" },
   { id: "player-05", name: "Player 05", shortName: "P05", age: "TBD", role: "Digital Challenger", tagline: "Ready To Rally", nation: "TBD", group: "A", seed: "A5", cardPath: "players/player-05.html" },
   { id: "player-06", name: "Player 06", shortName: "P06", age: "TBD", role: "Digital Challenger", tagline: "Match Point Incoming", nation: "TBD", group: "B", seed: "B1", cardPath: "players/player-06.html" },
