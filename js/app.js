@@ -1,14 +1,14 @@
 const players = [
   { id: "dario-strelec", name: "Dario Strelec", shortName: "Dario", age: 47, role: "System Architect", tagline: "The Systems Maestro", nation: "Team 2", group: "A", seed: "A1", cardPath: "players/dario-strelec.html" },
-  { id: "player-02", name: "Martin Lacko", shortName: "Martin", age: 27, role: "Development Team Lead", tagline: "The UI Matador", nation: "Team 1", group: "A", seed: "A2", cardPath: "players/player-02.html" },
+  { id: "player-02", name: "Martin Lacko", shortName: "Martin", age: 27, role: "Development Team Lead", tagline: "The UI Matador", nation: "Team 1", group: "B", seed: "B4", cardPath: "players/player-02.html" },
   { id: "player-03", name: "Matija Šaško", shortName: "Matija", age: 38, role: "Product Owner", tagline: "The Backlog Boomer", nation: "Team 4", group: "A", seed: "A3", cardPath: "players/player-03.html" },
   { id: "player-04", name: "Marko Možina", shortName: "Marko", age: 43, role: "Head of Development", tagline: "The Operating Ace", nation: "Team 4", group: "A", seed: "A4", cardPath: "players/player-04.html" },
-  { id: "player-05", name: "Luka Mikolaj", shortName: "Luka", age: 35, role: "Main Developer", tagline: "The Main Committer", nation: "Team 4", group: "A", seed: "A5", cardPath: "players/player-05.html" },
-  { id: "player-06", name: "Petar Brljak", shortName: "Petar", age: 26, role: "Developer", tagline: "The Integration Cannon", nation: "Integration Team", group: "B", seed: "B1", cardPath: "players/player-06.html" },
+  { id: "player-05", name: "Luka Mikolaj", shortName: "Luka", age: 35, role: "Main Developer", tagline: "The Main Committer", nation: "Team 4", group: "B", seed: "B1", cardPath: "players/player-05.html" },
+  { id: "player-06", name: "Petar Brljak", shortName: "Petar", age: 26, role: "Developer", tagline: "The Integration Cannon", nation: "Integration Team", group: "A", seed: "A5", cardPath: "players/player-06.html" },
   { id: "player-07", name: "Dino Pavić", shortName: "Dino", age: 38, role: "Head of Development", tagline: "The EFLEX Maestro", nation: "EFLEX Team", group: "B", seed: "B2", cardPath: "players/player-07.html" },
   { id: "player-08", name: "Filip Jurinić", shortName: "Filip", age: 28, role: "Automation Engineer", tagline: "The Automation Wall", nation: "EFLEX Team", group: "B", seed: "B3", cardPath: "players/player-08.html" },
-  { id: "player-09", name: "Player 09", shortName: "P09", age: "TBD", role: "Digital Challenger", tagline: "Clutch Loader", nation: "TBD", group: "B", seed: "B4", cardPath: "players/player-09.html" },
-  { id: "player-10", name: "Player 10", shortName: "P10", age: "TBD", role: "Digital Challenger", tagline: "Tournament Dark Horse", nation: "TBD", group: "B", seed: "B5", cardPath: "players/player-10.html" }
+  { id: "player-09", name: "Karlo Miloš", shortName: "Karlo", age: 23, role: "Integration Engineer", tagline: "The Integration Counterpuncher", nation: "System/IT Team", group: "A", seed: "A2", cardPath: "players/player-09.html" },
+  { id: "player-10", name: "Ivan Žuglić", shortName: "Ivan", age: 25, role: "Database Administrator", tagline: "The DBA Baseline", nation: "EFIT DBA Team", group: "B", seed: "B5", cardPath: "players/player-10.html" }
 ];
 
 const PLAYOFF_MAP = [
@@ -34,6 +34,7 @@ const playoffMatches = [
 
 const SUPABASE_TABLE = "game_results";
 const DEFAULT_TOURNAMENT_ID = "efd-open-2026";
+const MAX_SCORE = 4;
 const playerMap = Object.fromEntries(players.map((player) => [player.id, player]));
 const groupMatches = buildGroupMatches();
 let supabaseClient = null;
@@ -268,7 +269,7 @@ function renderMatchList(container, results) {
 function buildScoreOptions(selectedValue) {
   const numericValue = selectedValue === undefined || selectedValue === "" ? "" : String(selectedValue);
   return [`<option value="">-</option>`]
-    .concat(Array.from({ length: 8 }, (_, index) => `<option value="${index}" ${numericValue === String(index) ? "selected" : ""}>${index}</option>`))
+    .concat(Array.from({ length: MAX_SCORE + 1 }, (_, index) => `<option value="${index}" ${numericValue === String(index) ? "selected" : ""}>${index}</option>`))
     .join("");
 }
 

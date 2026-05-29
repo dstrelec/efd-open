@@ -5,9 +5,15 @@ create table if not exists public.game_results (
   player2_score integer,
   updated_at timestamptz not null default now(),
   primary key (tournament_id, match_id),
-  constraint game_results_player1_score_check check (player1_score between 0 and 7),
-  constraint game_results_player2_score_check check (player2_score between 0 and 7)
+  constraint game_results_player1_score_check check (player1_score between 0 and 4),
+  constraint game_results_player2_score_check check (player2_score between 0 and 4)
 );
+
+alter table public.game_results
+  drop constraint if exists game_results_player1_score_check,
+  drop constraint if exists game_results_player2_score_check,
+  add constraint game_results_player1_score_check check (player1_score between 0 and 4),
+  add constraint game_results_player2_score_check check (player2_score between 0 and 4);
 
 alter table public.game_results enable row level security;
 
