@@ -791,6 +791,19 @@ h1,
   font: inherit;
 }
 
+.readonly-score {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.readonly-score strong,
+.player-pill strong {
+  display: block;
+  min-height: 1.25em;
+}
+
 .match-status {
   padding: 12px 14px;
   border-radius: 12px;
@@ -807,6 +820,10 @@ h1,
 
 .placement-score {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 180px;
+}
+
+.readonly-placement-score {
+  align-items: stretch;
 }
 
 .player-pill {
@@ -1148,6 +1165,29 @@ h1,
 
   .standings-table {
     min-width: 0;
+  }
+
+  .standings-table th,
+  .standings-table td {
+    box-sizing: border-box;
+    padding: 12px 5px;
+  }
+
+  .standings-table th:first-child,
+  .standings-table td:first-child {
+    width: 30px;
+  }
+
+  .standings-table th:not(:nth-child(2)):not(:first-child),
+  .standings-table td:not(:nth-child(2)):not(:first-child) {
+    width: 34px;
+  }
+
+  .standings-table th:nth-child(2),
+  .standings-table td:nth-child(2) {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .hero-title,
