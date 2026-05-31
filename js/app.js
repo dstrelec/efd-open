@@ -218,7 +218,7 @@ function sortStandings(entries) {
   });
 }
 
-function renderMatchList(container, results) {
+function renderMatchList(container, results, isEditable) {
   const grouped = groupMatches.reduce((acc, match) => {
     if (!acc[match.group]) acc[match.group] = {};
     if (!acc[match.group][match.round]) acc[match.group][match.round] = [];
@@ -243,20 +243,7 @@ function renderMatchList(container, results) {
                   <span class="mini-label">${match.id}</span>
                   <strong>${getPlayerName(match.player1)} vs ${getPlayerName(match.player2)}</strong>
                 </div>
-                <div class="match-score-grid">
-                  <label class="match-score-control">
-                    <span class="input-label">${getPlayerName(match.player1)}</span>
-                    <select data-match-id="${match.id}" data-player-key="player1">${buildScoreOptions(saved.player1)}</select>
-                  </label>
-                  <label class="match-score-control">
-                    <span class="input-label">${getPlayerName(match.player2)}</span>
-                    <select data-match-id="${match.id}" data-player-key="player2">${buildScoreOptions(saved.player2)}</select>
-                  </label>
-                  <div class="match-status">
-                    <span class="input-label">Status</span>
-                    <strong>${describeResult(saved.player1, saved.player2)}</strong>
-                  </div>
-                </div>
+                ${renderMatchScore(match, saved, isEditable)}
               </article>
             `;
           }).join("")}
@@ -264,6 +251,44 @@ function renderMatchList(container, results) {
       </section>
     `)
   ).join("");
+}
+
+function renderMatchScore(match, saved, isEditable) {
+  if (isEditable) {
+    return `
+      <div class="match-score-grid">
+        <label class="match-score-control">
+          <span class="input-label">${getPlayerName(match.player1)}</span>
+          <select data-match-id="${match.id}" data-player-key="player1">${buildScoreOptions(saved.player1)}</select>
+        </label>
+        <label class="match-score-control">
+          <span class="input-label">${getPlayerName(match.player2)}</span>
+          <select data-match-id="${match.id}" data-player-key="player2">${buildScoreOptions(saved.player2)}</select>
+        </label>
+        <div class="match-status">
+          <span class="input-label">Status</span>
+          <strong>${describeResult(saved.player1, saved.player2)}</strong>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="match-score-grid readonly-score-grid">
+      <div class="match-score-control readonly-score">
+        <span class="input-label">${getPlayerName(match.player1)}</span>
+        <strong>${formatScoreValue(saved.player1)}</strong>
+      </div>
+      <div class="match-score-control readonly-score">
+        <span class="input-label">${getPlayerName(match.player2)}</span>
+        <strong>${formatScoreValue(saved.player2)}</strong>
+      </div>
+      <div class="match-status">
+        <span class="input-label">Rezultat</span>
+        <strong>${describeResult(saved.player1, saved.player2)}</strong>
+      </div>
+    </div>
+  `;
 }
 
 function buildScoreOptions(selectedValue) {
@@ -277,6 +302,10 @@ function describeResult(player1, player2) {
   if (player1 === undefined || player2 === undefined || player1 === "" || player2 === "") return "Rezultat čeka unos";
   if (Number(player1) === Number(player2)) return "Rezultat mora imati pobjednika";
   return `${player1}:${player2}`;
+}
+
+function formatScoreValue(value) {
+  return value === undefined || value === "" ? "-" : value;
 }
 
 function renderStandings(container, standingsByGroup) {
@@ -326,7 +355,7 @@ function renderQualifiers(container, standingsByGroup) {
   }).join("");
 }
 
-function renderPlayoffBracket(container, standingsByGroup, results) {
+function renderPlayoffBracket(container, standingsByGroup, results, isEditable) {
   container.innerHTML = playoffMatches.map((match) => {
     const playerA = getPlayerBySeed(match.slotA, standingsByGroup);
     const playerB = getPlayerBySeed(match.slotB, standingsByGroup);
@@ -336,23 +365,51 @@ function renderPlayoffBracket(container, standingsByGroup, results) {
         <span class="draw-label">${match.stage}</span>
         <div class="draw-matchup">${playerA ? playerA.name : match.slotA} vs ${playerB ? playerB.name : match.slotB}</div>
         <p class="group-note">${match.label}</p>
-        <div class="score-entry placement-score" style="margin-top: 16px;">
-          <label>
-            <span class="input-label">${playerA ? playerA.name : match.slotA}</span>
-            <select data-match-id="${match.id}" data-player-key="player1">${buildScoreOptions(saved.player1)}</select>
-          </label>
-          <label>
-            <span class="input-label">${playerB ? playerB.name : match.slotB}</span>
-            <select data-match-id="${match.id}" data-player-key="player2">${buildScoreOptions(saved.player2)}</select>
-          </label>
-          <div class="player-pill">
-            <span class="input-label">Rezultat</span>
-            <strong>${describeResult(saved.player1, saved.player2)}</strong>
-          </div>
-        </div>
+        ${renderPlayoffScore(match, playerA, playerB, saved, isEditable)}
       </article>
     `;
   }).join("");
+}
+
+function renderPlayoffScore(match, playerA, playerB, saved, isEditable) {
+  const playerAName = playerA ? playerA.name : match.slotA;
+  const playerBName = playerB ? playerB.name : match.slotB;
+
+  if (isEditable) {
+    return `
+      <div class="score-entry placement-score" style="margin-top: 16px;">
+        <label>
+          <span class="input-label">${playerAName}</span>
+          <select data-match-id="${match.id}" data-player-key="player1">${buildScoreOptions(saved.player1)}</select>
+        </label>
+        <label>
+          <span class="input-label">${playerBName}</span>
+          <select data-match-id="${match.id}" data-player-key="player2">${buildScoreOptions(saved.player2)}</select>
+        </label>
+        <div class="player-pill">
+          <span class="input-label">Rezultat</span>
+          <strong>${describeResult(saved.player1, saved.player2)}</strong>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="score-entry placement-score readonly-placement-score" style="margin-top: 16px;">
+      <div class="player-pill">
+        <span class="input-label">${playerAName}</span>
+        <strong>${formatScoreValue(saved.player1)}</strong>
+      </div>
+      <div class="player-pill">
+        <span class="input-label">${playerBName}</span>
+        <strong>${formatScoreValue(saved.player2)}</strong>
+      </div>
+      <div class="player-pill">
+        <span class="input-label">Rezultat</span>
+        <strong>${describeResult(saved.player1, saved.player2)}</strong>
+      </div>
+    </div>
+  `;
 }
 
 function bindForm(root, results, rerender) {
@@ -371,18 +428,19 @@ async function initTournamentPage() {
   const matchList = document.querySelector("[data-match-list]");
   if (!matchList) return;
 
+  const isEditable = document.body.dataset.resultsMode === "edit";
   const standingsContainer = document.querySelector("[data-standings]");
   const qualifiersContainer = document.querySelector("[data-qualifiers]");
   const bracketContainer = document.querySelector("[data-playoff-bracket]");
   const results = await loadResults();
 
   const rerender = () => {
-    renderMatchList(matchList, results);
+    renderMatchList(matchList, results, isEditable);
     const standingsByGroup = calculateStandings(results);
     renderStandings(standingsContainer, standingsByGroup);
     renderQualifiers(qualifiersContainer, standingsByGroup);
-    renderPlayoffBracket(bracketContainer, standingsByGroup, results);
-    bindForm(document, results, rerender);
+    renderPlayoffBracket(bracketContainer, standingsByGroup, results, isEditable);
+    if (isEditable) bindForm(document, results, rerender);
   };
 
   rerender();
